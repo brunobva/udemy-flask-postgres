@@ -1,0 +1,6 @@
+venv/
+__pycache__/
+*.zip
+*.tar.gz
+Fav+Quotes+Project/
+*.js

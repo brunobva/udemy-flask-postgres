@@ -1,0 +1,25 @@
+docker run -d \
+    --name bvadevpostgres \
+    -p 5432:5432 \
+    -e POSTGRES_PASSWORD=bva@2021 \
+    -e POSTGRES_USER=usr_dev \
+    -e POSTGRES_DB=quotes \
+    -e POSTGRES_INITDB_ARGS="--data-checksums" \
+    -e PGDATA=/var/lib/postgresql/data/pgdata \
+    --net bvalab \
+    -v /bva/docker/postgres/dev:/var/lib/postgresql/data \
+    postgres:10
+
+docker run --name bvadevquotes \
+    -p 7000:7000 \
+    --net bvalab \
+    -d brunomor7/pyquotes:1.0
+
+docker run --name bvapgadmin \
+    -p 5051:5051 \
+    -e PGADMIN_DEFAULT_EMAIL=bruno@bvaconsultoria.com.br \
+    -e PGADMIN_DEFAULT_PASSWORD=bva@2021 \
+    -e PGADMIN_LISTEN_PORT=5051 \
+    --net bvalab \
+    -d dpage/pgadmin4
+

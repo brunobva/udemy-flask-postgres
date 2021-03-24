@@ -1,0 +1,16 @@
+FROM python:3.6
+EXPOSE 7000
+ENV POSTGRESS_HOST=bvadevpostgres
+ENV POSTGRES_PASSWORD=bva@2021 
+ENV POSTGRES_USER=usr_dev
+ENV POSTGRES_DB=quotes
+ENV POSTGRES_PORT=5432
+RUN mkdir -p /bva/quotes
+WORKDIR /bva/quotes
+ADD ./requirements.txt .
+ADD ./.flaskenv .
+ADD static/* ./static/
+ADD templates/* ./templates/
+ADD quotes.py .
+RUN pip install --no-cache-dir -r requirements.txt 
+CMD flask run -h 0.0.0.0 -p 7000
